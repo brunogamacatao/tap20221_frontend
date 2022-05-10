@@ -1,11 +1,29 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+const api = axios.create({
+  baseURL: 'http://localhost:5000',
+  headers: {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+  },
+});
+
+api.interceptors.request.use(async (config) => {
+  let token = sessionStorage.getItem('TOKEN');
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+}, (error) => Promise.reject(error));
+
 function App() {
   const [produtos, setProdutos] = useState([]);
 
   const carregarProdutos = async() => {
-    let { data } = await axios.get('http://localhost:5000/produtos');
+    let { data } = await api.get('http://localhost:5000/produtos');
     setProdutos(data);
   };
 
@@ -13,8 +31,28 @@ function App() {
     carregarProdutos();
   }, []);
 
+  const [form, setForm] = useState({email: '', senha: ''});
+
+  const setValor = (evento) => {
+    setForm({...form, [evento.target.name]: evento.target.value});
+  };
+
+  const fazerLogin = async (evt) => {
+    evt.preventDefault();
+    let dados = await api.post('/login', form);
+    let token = dados.data.token;
+    console.log('token', token);
+    sessionStorage.setItem('TOKEN', token);
+  };
+
   return (
     <>
+      <form onSubmit={(e) => fazerLogin(e)}>
+        <p>Email: <input type="text" name="email" value={form.email} onChange={setValor}/></p>
+        <p>Senha: <input type="password" name="senha" value={form.senha} onChange={setValor}/></p>
+        <p><button>Login</button></p>
+      </form>
+      <hr/>
       <TabelaDeProdutos produtos={produtos} onExcluir={() => carregarProdutos()}/>
       <hr/>
       <FormProduto onSalvar={() => carregarProdutos()}/>
@@ -24,7 +62,7 @@ function App() {
 
 const TabelaDeProdutos = ({produtos, onExcluir}) => {
   const excluir = async (p) => {
-    await axios.delete(`http://localhost:5000/produtos/${p._id}`);
+    await api.delete(`http://localhost:5000/produtos/${p._id}`);
     onExcluir();
   };
 
@@ -67,7 +105,7 @@ const FormProduto = ({onSalvar}) => {
 
   const salvar = async () => {
     setAguarde(true);
-    await axios.post('http://localhost:5000/produtos', form);
+    await api.post('http://localhost:5000/produtos', form);
     setForm(formularioVazio());
     setAguarde(false);
     onSalvar();
