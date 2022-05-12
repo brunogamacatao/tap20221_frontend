@@ -41,3 +41,28 @@ h3 {
 .formulario textarea {
   width: 100%;
 }
+
+header {
+  border: 1px solid black;
+  padding: 5px;
+}
+
+header h1 {
+  text-align: center;
+}
+
+header nav {
+  text-align: center;
+}
+
+header a {
+  margin-right: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-decoration: none;
+  font-size: 1em;
+  color: black;
+}
+
+header a:hover {
+  background-color: pink;
+}
