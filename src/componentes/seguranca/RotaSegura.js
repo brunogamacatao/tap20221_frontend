@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import AppContext from '../../contextos/AppContext';
 
 const RotaSegura = ({ children, role, redirectTo, ...rest }) => {
+  const { pathname } = useLocation();
   const { sessaoService } = useContext(AppContext);
 
   let podeAcessar = sessaoService.logado;
@@ -15,8 +16,7 @@ const RotaSegura = ({ children, role, redirectTo, ...rest }) => {
     return children;
   } else {
     // se não está autenticado, redireciona para o login
-    return <Navigate replace to={{ pathname: redirectTo, 
-                    state: { from: rest.location } }} />
+    return <Navigate replace to={redirectTo} state={{from: pathname}}/>
   }
 }
 

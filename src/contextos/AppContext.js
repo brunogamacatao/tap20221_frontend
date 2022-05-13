@@ -35,7 +35,7 @@ export const AppProvider = ({children}) => {
 
       sessionStorage.setItem('TOKEN', token);
       sessionStorage.setItem('ROLE', role);
-      sessionStorage.setItem('USUARIO', JSON.stringify(usuario));
+      sessionStorage.setItem('USUARIO', JSON.stringify(dados.data.usuario));
     } catch (erro) {
       let dados = erro.response.data;
       logout();

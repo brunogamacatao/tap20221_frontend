@@ -1,5 +1,8 @@
+html {
+  font-family: Arial, Helvetica, sans-serif;;
+}
+
 .tabela {
-  font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
 }
@@ -23,6 +26,14 @@
 
 h3 {
   text-align: center;
+}
+
+.formulario {
+  border: 1px solid black;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .formulario p {
@@ -57,7 +68,6 @@ header nav {
 
 header a {
   margin-right: 20px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
   text-decoration: none;
   font-size: 1em;
   color: black;
@@ -66,3 +76,21 @@ header a {
 header a:hover {
   background-color: pink;
 }
+
+header .avatar {
+  position: absolute;
+  top: 15px;
+  right: 0;
+}
+
+.avatar {
+  text-align: center;
+}
+
+.avatar img {
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+

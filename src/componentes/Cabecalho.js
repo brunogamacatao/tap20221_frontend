@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AppContext from "../contextos/AppContext";
+import Avatar from "./Avatar";
 import SeLogado from "./seguranca/SeLogado";
 import SeNaoLogado from "./seguranca/SeNaoLogado";
 import TemRole from "./seguranca/TemRole";
@@ -19,7 +20,7 @@ const Cabecalho = () => {
     <header>
       <h1>Cabeçalho da Aplicação</h1>
       <SeLogado>
-        <h3>{sessaoService.usuario?.nome}</h3>
+        <Avatar/>
       </SeLogado>
       <nav>
         <Link to="/">Início</Link>
